@@ -1,0 +1,38 @@
+version: '3.9'
+
+services:
+
+  object-service:
+    build: ./object_service
+    ports:
+      - "5001:5001"
+    container_name: object-service
+
+  depreciation-service:
+    build: ./depreciation_service
+    ports:
+      - "5002:5002"
+    container_name: depreciation-service
+
+  disposal-service:
+    build: ./disposal_service
+    ports:
+      - "3000:3000"
+    container_name: disposal-service
+
+  postgres:
+    image: postgres:16
+    container_name: postgres-db
+    restart: always
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin
+      POSTGRES_DB: fixed_assets
+    ports:
+      - "5432:5432"
+
+  redis:
+    image: redis:7
+    container_name: redis-cache
+    ports:
+      - "6379:6379"
