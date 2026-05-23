@@ -15,9 +15,11 @@ objects = [
     }
 ]
 
+
 @app.route('/objects', methods=['GET'])
 def get_objects():
     return jsonify(objects)
+
 
 if __name__ == '__main__':
     app.run(port=5001)

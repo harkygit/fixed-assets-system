@@ -2,6 +2,7 @@ from flask import Flask, request, jsonify
 
 app = Flask(__name__)
 
+
 @app.route('/depreciation/calculate', methods=['POST'])
 def calculate_depreciation():
 
@@ -15,6 +16,7 @@ def calculate_depreciation():
     return jsonify({
         "yearly_depreciation": depreciation
     })
+
 
 if __name__ == '__main__':
     app.run(port=5002)
