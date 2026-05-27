@@ -5,12 +5,12 @@ app = Flask(__name__)
 objects = [
     {
         "inventory_id": "OS001",
-        "name": "Ноутбук",
+        "name": "Ноутбук Lenovo ThinkPad T14",
         "cost": 80000
     },
     {
         "inventory_id": "OS002",
-        "name": "Принтер",
+        "name": "МФУ HP LaserJet Pro",
         "cost": 25000
     }
 ]
@@ -22,4 +22,4 @@ def get_objects():
 
 
 if __name__ == '__main__':
-    app.run(port=5001)
+    app.run(host='0.0.0.0', port=5001)

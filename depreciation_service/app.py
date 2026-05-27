@@ -5,12 +5,10 @@ app = Flask(__name__)
 
 @app.route('/depreciation/calculate', methods=['POST'])
 def calculate_depreciation():
-
     data = request.json
 
     cost = data['cost']
     useful_life = data['useful_life']
-
     depreciation = cost / useful_life
 
     return jsonify({
@@ -19,4 +17,4 @@ def calculate_depreciation():
 
 
 if __name__ == '__main__':
-    app.run(port=5002)
+    app.run(host='0.0.0.0', port=5002)

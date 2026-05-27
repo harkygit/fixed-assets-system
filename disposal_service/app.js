@@ -5,7 +5,6 @@ const app = express()
 app.use(express.json())
 
 app.post('/disposal', (req, res) => {
-
     const inventory_id = req.body.inventory_id
     const reason = req.body.reason
 
