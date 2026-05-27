@@ -1,56 +1,358 @@
-<!DOCTYPE html>
-<html lang="ru">
+<!doctype html>
+<html lang="ru" data-theme="light">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="color-scheme" content="light dark">
+    <title>Fixed Assets Control Center</title>
 
-    <title>Учет основных средств</title>
-
-    <link
-        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-        rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="style.css" rel="stylesheet">
 </head>
 
-<body class="bg-light">
+<body>
+    <div class="app-shell">
+        <aside class="sidebar">
+            <div class="brand">
+                <div class="brand-mark">
+                    <i class="bi bi-layers-half"></i>
+                </div>
+                <div>
+                    <div class="brand-title">Fixed Assets</div>
+                    <div class="brand-subtitle">Control Center</div>
+                </div>
+            </div>
 
-<div class="container mt-5">
+            <nav class="sidebar-nav" aria-label="Основная навигация">
+                <a class="nav-item active" href="#">
+                    <i class="bi bi-grid-1x2"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a class="nav-item" href="#assets-section">
+                    <i class="bi bi-hdd-stack"></i>
+                    <span>Объекты ОС</span>
+                </a>
+                <a class="nav-item" href="#integration-section">
+                    <i class="bi bi-diagram-3"></i>
+                    <span>Интеграция</span>
+                </a>
+                <a class="nav-item" href="http://localhost:8081/swagger" target="_blank" rel="noreferrer">
+                    <i class="bi bi-braces"></i>
+                    <span>Swagger</span>
+                </a>
+                <a class="nav-item" href="#">
+                    <i class="bi bi-activity"></i>
+                    <span>Мониторинг</span>
+                </a>
+            </nav>
 
-    <h1 class="mb-4">
-        Система учета основных средств
-    </h1>
+            <div class="sidebar-card">
+                <div class="pulse-dot"></div>
+                <div>
+                    <div class="sidebar-card-title">Demo stand</div>
+                    <div class="sidebar-card-text">Docker Compose окружение активно</div>
+                </div>
+            </div>
+        </aside>
 
-    <div class="card p-4">
+        <main class="main-panel">
+            <header class="topbar">
+                <button class="icon-button mobile-menu" type="button" aria-label="Открыть меню">
+                    <i class="bi bi-list"></i>
+                </button>
 
-        <h3>Каталог объектов ОС</h3>
+                <div class="topbar-title">
+                    <span class="eyebrow">Enterprise asset operations</span>
+                    <h1>Учет основных средств</h1>
+                </div>
 
-        <table class="table table-bordered mt-3">
+                <div class="topbar-actions">
+                    <div class="search-bar compact-search">
+                        <i class="bi bi-search"></i>
+                        <input id="globalSearch" type="search" placeholder="Поиск по ID или названию">
+                    </div>
+                    <button id="themeToggle" class="icon-button" type="button" aria-label="Переключить тему">
+                        <i class="bi bi-moon-stars"></i>
+                    </button>
+                    <button id="refreshButton" class="soft-button" type="button">
+                        <i class="bi bi-arrow-clockwise"></i>
+                        Обновить
+                    </button>
+                </div>
+            </header>
 
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Название</th>
-                    <th>Стоимость</th>
-                    <th>Действие</th>
-                </tr>
-            </thead>
+            <section class="hero-grid">
+                <div class="hero-card">
+                    <div class="hero-content">
+                        <span class="hero-kicker">Integration workflow</span>
+                        <h2>Frontend → IntegrationService → доменные сервисы</h2>
+                        <p>Единая панель для контроля ОС, статуса API, Redis cache и операций списания.</p>
+                        <div class="hero-actions">
+                            <button id="runDemoButton" class="primary-button" type="button">
+                                <i class="bi bi-play-fill"></i>
+                                Запустить demo flow
+                            </button>
+                            <a class="ghost-button" href="http://localhost:8081/swagger" target="_blank" rel="noreferrer">
+                                <i class="bi bi-box-arrow-up-right"></i>
+                                Swagger
+                            </a>
+                        </div>
+                    </div>
+                    <div class="workflow-card" aria-label="Состояние интеграции">
+                        <div class="workflow-step done">
+                            <i class="bi bi-window-sidebar"></i>
+                            <span>Frontend</span>
+                        </div>
+                        <div class="workflow-line"></div>
+                        <div class="workflow-step live">
+                            <i class="bi bi-cpu"></i>
+                            <span>Integration</span>
+                        </div>
+                        <div class="workflow-line"></div>
+                        <div class="workflow-step done">
+                            <i class="bi bi-boxes"></i>
+                            <span>Services</span>
+                        </div>
+                    </div>
+                </div>
 
-            <tbody id="objectsTable">
-            </tbody>
+                <div class="notification-panel">
+                    <div class="section-heading">
+                        <div>
+                            <span class="eyebrow">Notifications</span>
+                            <h3>События</h3>
+                        </div>
+                        <span class="status-badge processing">Live</span>
+                    </div>
+                    <div id="notificationList" class="notification-list"></div>
+                </div>
+            </section>
 
-        </table>
+            <section class="metric-grid" aria-label="Статистика">
+                <article class="metric-card">
+                    <div class="metric-icon blue"><i class="bi bi-collection"></i></div>
+                    <div>
+                        <span>Всего объектов</span>
+                        <strong id="totalAssets">0</strong>
+                    </div>
+                </article>
+                <article class="metric-card">
+                    <div class="metric-icon green"><i class="bi bi-check2-circle"></i></div>
+                    <div>
+                        <span>Активные</span>
+                        <strong id="activeAssets">0</strong>
+                    </div>
+                </article>
+                <article class="metric-card">
+                    <div class="metric-icon slate"><i class="bi bi-archive"></i></div>
+                    <div>
+                        <span>Списанные</span>
+                        <strong id="archivedAssets">0</strong>
+                    </div>
+                </article>
+                <article class="metric-card">
+                    <div class="metric-icon violet"><i class="bi bi-graph-up-arrow"></i></div>
+                    <div>
+                        <span>Амортизация</span>
+                        <strong id="depreciationTotal">0 ₽</strong>
+                    </div>
+                </article>
+                <article class="metric-card">
+                    <div class="metric-icon red"><i class="bi bi-exclamation-triangle"></i></div>
+                    <div>
+                        <span>Ошибки интеграции</span>
+                        <strong id="errorCount">0</strong>
+                    </div>
+                </article>
+            </section>
 
-        <div id="status"
-             class="alert alert-info mt-3">
-            Статус системы...
-        </div>
+            <section id="integration-section" class="content-grid">
+                <div class="panel status-panel">
+                    <div class="section-heading">
+                        <div>
+                            <span class="eyebrow">Realtime status</span>
+                            <h3>Health monitor</h3>
+                        </div>
+                        <button id="healthRefreshButton" class="icon-button small" type="button" aria-label="Обновить статус">
+                            <i class="bi bi-arrow-clockwise"></i>
+                        </button>
+                    </div>
 
+                    <div class="health-list">
+                        <div class="health-item" data-service="IntegrationService">
+                            <div class="health-meta">
+                                <i class="bi bi-cpu"></i>
+                                <div>
+                                    <strong>IntegrationService</strong>
+                                    <span>ASP.NET Core API</span>
+                                </div>
+                            </div>
+                            <span id="integrationStatus" class="status-badge processing">Checking</span>
+                        </div>
+                        <div class="health-item" data-service="Redis">
+                            <div class="health-meta">
+                                <i class="bi bi-lightning-charge"></i>
+                                <div>
+                                    <strong>Redis cache</strong>
+                                    <span id="redisHint">assets:list</span>
+                                </div>
+                            </div>
+                            <span id="redisStatus" class="status-badge processing">Warming</span>
+                        </div>
+                        <div class="health-item" data-service="PostgreSQL">
+                            <div class="health-meta">
+                                <i class="bi bi-database"></i>
+                                <div>
+                                    <strong>PostgreSQL</strong>
+                                    <span>fixed_assets</span>
+                                </div>
+                            </div>
+                            <span id="postgresStatus" class="status-badge active">Ready</span>
+                        </div>
+                        <div class="health-item" data-service="API">
+                            <div class="health-meta">
+                                <i class="bi bi-cloud-check"></i>
+                                <div>
+                                    <strong>Downstream API</strong>
+                                    <span>Object, depreciation, disposal</span>
+                                </div>
+                            </div>
+                            <span id="apiStatus" class="status-badge active">Online</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="panel activity-panel">
+                    <div class="section-heading">
+                        <div>
+                            <span class="eyebrow">Operations</span>
+                            <h3>Последние действия</h3>
+                        </div>
+                    </div>
+                    <div id="activityFeed" class="activity-feed"></div>
+                </div>
+            </section>
+
+            <section id="assets-section" class="panel assets-panel">
+                <div class="table-toolbar">
+                    <div>
+                        <span class="eyebrow">Asset registry</span>
+                        <h3>Объекты основных средств</h3>
+                    </div>
+
+                    <div class="toolbar-controls">
+                        <div class="search-bar">
+                            <i class="bi bi-search"></i>
+                            <input id="assetSearch" type="search" placeholder="Поиск объектов">
+                        </div>
+
+                        <select id="statusFilter" class="form-select filter-select" aria-label="Фильтр статуса">
+                            <option value="all">Все статусы</option>
+                            <option value="Active">Active</option>
+                            <option value="Processing">Processing</option>
+                            <option value="Archived">Archived</option>
+                            <option value="Error">Error</option>
+                        </select>
+
+                        <select id="sortSelect" class="form-select filter-select" aria-label="Сортировка">
+                            <option value="name-asc">Название A-Z</option>
+                            <option value="cost-desc">Стоимость ↓</option>
+                            <option value="cost-asc">Стоимость ↑</option>
+                            <option value="id-asc">ID A-Z</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div id="loadingState" class="loading-state">
+                    <div class="spinner"></div>
+                    <span>Загружаем каталог ОС...</span>
+                </div>
+
+                <div id="emptyState" class="empty-state d-none">
+                    <i class="bi bi-inboxes"></i>
+                    <h4>Ничего не найдено</h4>
+                    <p>Измените поиск или фильтр статуса.</p>
+                </div>
+
+                <div class="table-shell">
+                    <table class="asset-table">
+                        <thead>
+                            <tr>
+                                <th>Объект</th>
+                                <th>Стоимость</th>
+                                <th>Амортизация</th>
+                                <th>Статус</th>
+                                <th>Интеграция</th>
+                                <th class="text-end">Действия</th>
+                            </tr>
+                        </thead>
+                        <tbody id="objectsTable"></tbody>
+                    </table>
+                </div>
+            </section>
+        </main>
     </div>
 
-</div>
+    <div class="toast-container position-fixed top-0 end-0 p-3">
+        <div id="appToast" class="toast app-toast" role="status" aria-live="polite" aria-atomic="true">
+            <div class="toast-body">
+                <i id="toastIcon" class="bi bi-check-circle"></i>
+                <div>
+                    <strong id="toastTitle">Готово</strong>
+                    <span id="toastMessage">Операция выполнена</span>
+                </div>
+            </div>
+        </div>
+    </div>
 
-<script src="app.js"></script>
+    <div class="modal fade" id="assetModal" tabindex="-1" aria-labelledby="assetModalTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content app-modal">
+                <div class="modal-header">
+                    <div>
+                        <span class="eyebrow">Asset details</span>
+                        <h5 id="assetModalTitle" class="modal-title">Карточка ОС</h5>
+                    </div>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+                </div>
+                <div id="assetModalBody" class="modal-body"></div>
+            </div>
+        </div>
+    </div>
 
+    <div class="modal fade" id="workflowModal" tabindex="-1" aria-labelledby="workflowModalTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content app-modal">
+                <div class="modal-header">
+                    <div>
+                        <span class="eyebrow">Workflow</span>
+                        <h5 id="workflowModalTitle" class="modal-title">Списание объекта</h5>
+                    </div>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+                </div>
+                <div class="modal-body">
+                    <p id="workflowText" class="modal-copy"></p>
+                    <label class="form-label" for="disposalReason">Причина списания</label>
+                    <input id="disposalReason" class="form-control app-input" value="Физический износ">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="ghost-button" data-bs-dismiss="modal">Отмена</button>
+                    <button id="confirmDisposalButton" type="button" class="primary-button">
+                        <i class="bi bi-check2"></i>
+                        Подтвердить
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="app.js"></script>
 </body>
+
 </html>
